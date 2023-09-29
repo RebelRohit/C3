@@ -1,0 +1,56 @@
+// Define SCSS variables without the $ prefix
+$primary-color: #008DFF;
+$background-color: #fff;
+
+
+
+body {
+  margin: 0;
+  padding: 0;
+  background: $background-color;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  
+}
+
+.Navbar {
+  background-color: $primary-color !important;
+  margin: 0;
+}
+
+#logo{
+  margin-left: 1vh;
+}
+.ms-auto {
+  color: #fff !important; // Set text color to white with !important
+}
+
+.Navbar.Brand {
+  margin: auto;
+}
+
+.elements {
+  position: relative !important;
+  color: #fff !important; // Set text color to white with !important
+  font-size: large !important;
+  margin-right: 50px !important;
+  font-family: 'Poppins', sans-serif;
+}
+
+.elements::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #fff !important; // Set background color to white with !important
+  transition: width 0.3s ease;
+}
+
+.elements:hover::after {
+  width: 100%;
+}
