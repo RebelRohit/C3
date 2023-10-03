@@ -2,52 +2,32 @@ import React, { useEffect, useState } from 'react';
 import './search.scss';
 import axios from 'axios';
 
-
 export default function SearchForm() {
-  const[data, setData] = useState([])
-  useEffect(()=>{
-    axios.get('https://jsonplaceholder.typicode.com/users')
-    .then(res => setData(res.data))
-    .catch(err => console.log(err));
-  },[])
-  return(
-    <div className=''container>
-      <div className='mt-3'>
-        <h3>User data</h3>
-        <table className='table'>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>City</th>
+  const [data, setData] = useState([]);
 
-            </tr>
-          </thead>
-          <tbody>{
-            data.map((user, index)=>{
-              return <tr key={index}>
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/search')
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.address.city}</td>
-              </tr>
-
-            })
-
-
-            }
-
-          </tbody>
-        </table>
-
-
+  // Render the user data as a list
+  const renderUserData = () => {
+    return data.map((user) => (
+      <div key={user.userId} className="user-card">
+        <h2>{user.userName}</h2>
+        <p>Requested Date: {user.RequestedDate}</p>
+        <p>Requested Time: {user.RequestedTime}</p>
+        {/* Add more user properties as needed */}
       </div>
-      
-    </div>
+    ));
+  };
 
-  )
-  
-  
+  return (
+    <div className="container">
+      <h1>User Data</h1>
+      {renderUserData()}
+    </div>
+  );
 }
