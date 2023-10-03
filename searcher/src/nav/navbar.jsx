@@ -1,31 +1,42 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import './navigation.scss';
-import '../login/login'
-import 'react-router-dom'
-// import Home from './Home';
+import './Navigation.scss';
+import '../homepage/home';
+import '../login/login';
+import LoginCard from '../login/login';
+import HomeScreen from '../homepage/home';
+import SearchForm from '../searchbar/search';
 
-export default function Navigation() {
+function Navigation() {
   return (
-    <>
-    
-    <Navbar className='Navbar'>
+    <Router>
+      <Navbar className='Navbar'>
+        <Navbar.Brand as={Link} to="/">
+          <img
+            src="https://in1-cpaas.ozonetel.com/templates/beez3/images/logosmall_ozo.png"
+            alt="Ozonetel Logo"
+            width="auto"
+            height="auto"
+          />
+        </Navbar.Brand>
+        <Nav className="ms-auto">
+          <Nav.Link as={Link} to='/home' className='elements' id='Home'>Home</Nav.Link>
+          <Nav.Link as={Link} to='/login' className='elements' id='Login'>Login</Nav.Link>
+          <Nav.Link as={Link} to='/search' className='elements' id='Search'>Search</Nav.Link>
+          <Nav.Link className='elements' id='Aboutus' href="https://ozonetel.com/about-us/">About Us</Nav.Link>
 
-  <Navbar.Brand href="/home" id="logo"><img
-              src="https://in1-cpaas.ozonetel.com/templates/beez3/images/logosmall_ozo.png" // Replace with the actual path to your image
-              alt="Ozonetel Logo"    // Alt text for accessibility
-              width="auto"             // Set the width of the image
-              height="auto"          // Maintain aspect ratio
-            /></Navbar.Brand>
-   <Nav className="ms-auto">
-            <Nav.Link className='elements' id='Home' href="/">Home</Nav.Link>
-            <Nav.Link className='elements' id='Login' href="/login">Login</Nav.Link>
-            <Nav.Link className='elements' id='Aboutus' href="https://ozonetel.com/about-us/">About Us</Nav.Link>
-          </Nav>
-     
+        </Nav>
       </Navbar>
-      
-    </>
+      <Routes>
+        <Route path="/home" element={<HomeScreen />} />
+        <Route path="/login" element={<LoginCard />} />
+          <Route path="/search" element={<SearchForm />} />
+          
+      </Routes>
+    </Router>
   );
 }
 
+export default Navigation;

@@ -1,8 +1,5 @@
-// Define SCSS variables without the $ prefix
 $primary-color: #008DFF;
 $background-color: #fff;
-
-
 
 body {
   margin: 0;
@@ -11,21 +8,24 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  font-size: 15px;
+  font-size: 16px;
   font-family: 'Poppins', sans-serif;
-  
 }
 
 .Navbar {
   background-color: $primary-color !important;
   margin: 0;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#logo{
-  margin-left: 1vh;
+#logo {
+  margin-left: 1rem;
 }
+
 .ms-auto {
-  color: #fff !important; // Set text color to white with !important
+  color: #fff !important;
+  display: flex;
+  align-items: center;
 }
 
 .Navbar.Brand {
@@ -34,23 +34,33 @@ body {
 
 .elements {
   position: relative !important;
-  color: #fff !important; // Set text color to white with !important
-  font-size: large !important;
-  margin-right: 50px !important;
+  color: #fff !important;
+  font-size: 18px;
+  margin-right: 20px !important;
+  font-weight: bold;
+  transition: color 0.3s ease;
   font-family: 'Poppins', sans-serif;
+
+  &:hover {
+    color: #00c3ff !important;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #00c3ff !important;
+    transition: width 0.3s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
 }
 
-.elements::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #fff !important; // Set background color to white with !important
-  transition: width 0.3s ease;
-}
-
-.elements:hover::after {
-  width: 100%;
+.no-underline-link {
+  text-decoration: none;
 }
