@@ -1,0 +1,23 @@
+.head{
+
+    text-align: center;
+    font-size: 40px;
+    background-color:rgba($color: #ffff, $alpha: 0.9);
+    color: #1E1E20;
+    font-weight: 500;
+    margin: 0px;
+    font-family: 'Inter', sans-serif;
+    }
+
+#foot{
+    text-align: center;
+    margin: 0px;
+    
+
+}
+
+
+.carousel-control-prev,
+.carousel-control-next {
+  display: none !important; // Use !important to override Bootstrap's default styles
+}

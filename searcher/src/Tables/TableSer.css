@@ -1,0 +1,53 @@
+/* Add your styles here */
+/* table styles */
+
+table {
+  margin: 0px !important;
+  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif !important;
+  border-collapse: collapse !important;
+  width: 100% !important;
+}
+
+table td,
+table th {
+  border: 1px solid #ffffff !important;
+  padding: 8px !important;
+}
+
+table tr:nth-child(even) {
+  background-color: #ffffff !important;
+}
+
+table tr:hover {
+  background-color: #ffffff ;
+  color: black ;
+}
+
+/* header and footer styles */
+table th, tfoot td {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+  text-align: center !important;
+  /* border: 20x !important; */
+  background-color: #2967da !important;
+  color: white !important;
+  
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center; /* Center the pagination horizontally */
+  margin-top: 20px; /* Add a gap from the table bottom */
+}
+
+.pagination {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination li {
+  display: inline;
+  margin-right: 5px; /* Add a bit of space between pagination items */
+}
+

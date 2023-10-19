@@ -1,5 +1,6 @@
-$primary-color: #008DFF;
 $background-color: #fff;
+$primary-color: #008DFF;
+$secondary-color: #64f077;
 
 body {
   margin: 0;
@@ -23,26 +24,27 @@ body {
 }
 
 .ms-auto {
-  color: #fff !important;
+  color: $background-color !important;
   display: flex;
   align-items: center;
 }
 
 .Navbar.Brand {
-  margin: auto;
+  margin-left: 5px;
 }
 
 .elements {
+  text-decoration: none;
   position: relative !important;
-  color: #fff !important;
+  color: $background-color !important;
   font-size: 18px;
-  margin-right: 20px !important;
-  font-weight: bold;
+  margin-right: 25px !important;
   transition: color 0.3s ease;
   font-family: 'Poppins', sans-serif;
+  font-weight: 100;
 
   &:hover {
-    color: #00c3ff !important;
+    color: $secondary-color !important;
   }
 
   &::after {
@@ -52,7 +54,7 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #00c3ff !important;
+    background-color: $background-color !important;
     transition: width 0.3s ease;
   }
 
@@ -61,6 +63,4 @@ body {
   }
 }
 
-.no-underline-link {
-  text-decoration: none;
-}
+// 

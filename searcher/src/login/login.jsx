@@ -1,23 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './login.scss';
+import { useNavigate } from 'react-router-dom';
 import credentials from '../credentials.json';
+
 
 export default function LoginCard() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
-  // Function to handle the login logic
   const handleLogin = () => {
-    if (username === credentials.username && password === credentials.password) {
+    if (username === credentials.userID && password === credentials.Password) {
       setIsLoggedIn(true);
+      navigate("/search");
     } else {
       alert('Invalid username or password');
     }
   };
 
+  // useEffect(()=>{
+  //   if(isLoggedIn){
+  //     navigate("/search")
+  //   }
+  // },[isLoggedIn])
+
+  // const ER = ()=>{
+  //   if(isLoggedIn){
+  //     redirect("/search")
+  //     }
+  //   }
+  // }
+  // Function to handle the login logic
+  // const handleLogin = () => {
+  //   if (username === credentials.userID && password === credentials.Password) {
+  //     setIsLoggedIn(true); 
+  //       alert("Logged in");
+  //   } else {
+  //     alert('Invalid username or password');
+  //   }
+  // };
+  
+
   return (
+    <>
+    
     <div className="login-card">
+      
       <div className="card">
         <div className="card-body">
           <h5 className="card-title">Login</h5>
@@ -51,7 +80,8 @@ export default function LoginCard() {
             </div>
             <button
               type="button"
-              className="btn btn-custom" id="button"
+              className="btn btn-custom"
+              id="button"
               onClick={handleLogin}
             >
               Login
@@ -60,5 +90,6 @@ export default function LoginCard() {
         </div>
       </div>
     </div>
+    </>
   );
 }

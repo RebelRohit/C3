@@ -1,0 +1,51 @@
+*{
+font-family: 'Poppins', sans-serif;
+}
+
+.app{
+    margin: 25px;
+}
+
+.search{
+    margin-left: 200px;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 50px;
+
+}
+
+.list{
+    padding: 5px;
+    margin: 50px;
+    border: 4pc;
+    list-style: none;
+    text-align: center;
+}
+
+.listItem{
+    margin-bottom: 20px;
+    margin-right: 10px;
+    font-size: 25px;
+    color: #444;
+    font-weight: 300;
+    word-spacing: 10px;
+    text-align: center;
+}
+
+.date{
+    margin-top: 10px;
+    margin-left: 180px;
+    margin-bottom: 20px;
+    padding: 5px;
+    border-radius: 50px;
+    color:blue($color:#444)
+}
+
+#d1{
+    margin-right: 5px !important;
+}
+
+#d2{
+    margin-left: 5px !important;
+ 
+}
