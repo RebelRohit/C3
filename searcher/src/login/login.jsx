@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import credentials from '../credentials.json';
 
 
-export default function LoginCard() {
+export default function LoginCard({setIsLoggedIn}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  
 
   const handleLogin = () => {
     if (username === credentials.userID && password === credentials.Password) {
@@ -19,29 +20,7 @@ export default function LoginCard() {
     }
   };
 
-  // useEffect(()=>{
-  //   if(isLoggedIn){
-  //     navigate("/search")
-  //   }
-  // },[isLoggedIn])
-
-  // const ER = ()=>{
-  //   if(isLoggedIn){
-  //     redirect("/search")
-  //     }
-  //   }
-  // }
-  // Function to handle the login logic
-  // const handleLogin = () => {
-  //   if (username === credentials.userID && password === credentials.Password) {
-  //     setIsLoggedIn(true); 
-  //       alert("Logged in");
-  //   } else {
-  //     alert('Invalid username or password');
-  //   }
-  // };
   
-
   return (
     <>
     

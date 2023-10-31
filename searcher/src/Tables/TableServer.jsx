@@ -6,7 +6,7 @@ import './TableSer.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const Tabs = ({ data }) => {
+const Tabe = ({ data }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage =10;
     const pageCount = Math.ceil(data.length/itemsPerPage);
@@ -17,12 +17,13 @@ const Tabs = ({ data }) => {
   return (
     <>
     <div className='table-container'>
-    <table className="table table-striped">
-      <thead style={{ position: 'sticky', top: '60px', background: 'white' }}>
+    <table className="custom-table">
+      <thead style={{ position: 'sticky', top: '60px', background: 'black' }}>
         <tr>
           <th>Seq ID</th>
           <th>User ID</th>
-          <th>Meta message id</th>
+          <th>Meta message ID</th>
+          <th>User Name</th>
           <th>Requested date</th>
           <th>Requested time</th>
           <th>Send date</th>
@@ -38,31 +39,32 @@ const Tabs = ({ data }) => {
           <th>WAID</th>
           <th>Phone ID</th>
           <th>Template name</th>
-          <th>language</th>
+          <th>Language</th>
         </tr>
       </thead>
       <tbody>
         {currentPageData.map((item) => (
-          <tr key={item.userid}>
-            <td>{item.seqid}</td>
-            <td>{item.userid}</td>
+          <tr key={item.userId}>
+            <td>{item.SeqId}</td>
+            <td>{item.userId}</td>
             <td>{item.meta_message_id}</td>
-            <td>{item.requested_date}</td>
-            <td>{item.requested_time}</td>
-            <td>{item.send_date}</td>
-            <td>{item.send_time}</td>
-            <td>{item.request_body}</td>
-            <td>{item.response}</td>
-            <td>{item.httpcode}</td>
-            <td>{item.sourceip}</td>
-            <td>{item.url}</td>
-            <td>{item.whatsapp_number}</td>
+            <td>{item.userName}</td>
+            <td>{item.RequestedDate}</td>
+            <td>{item.RequestedTime}</td>
+            <td>{item.SendDate}</td>
+            <td>{item.SendTime}</td>
+            <td>{item.RequestBody}</td>
+            <td>{item.Response}</td>
+            <td>{item.HttpCode}</td>
+            <td>{item.SourceIP}</td>
+            <td>{item.URL}</td>
+            <td>{item.WhatsappNumber}</td>
             <td>{item.platform_type}</td>
-            <td>{item.actualbody}</td>
+            <td>{item.ActualBody}</td>
             <td>{item.WAID}</td>
-            <td>{item.phone_id}</td>
-            <td>{item.template_name}</td>
-            <td>{item.language}</td>
+            <td>{item.PhoneID}</td>
+            <td>{item.TemplateName}</td>
+            <td>{item.Language}</td>
             </tr>
         ))}
       </tbody>
@@ -74,7 +76,7 @@ const Tabs = ({ data }) => {
         nextLabel={'Next'}
         breakLabel={<span>...</span>}
         pageCount={pageCount}
-        marginPagesDisplayed={2}
+        marginPagesDisplayed={3}
         pageRangeDisplayed={5}
         onPageChange={({ selected: selectedPage }) => setCurrentPage(selectedPage)}
         containerClassName={'pagination'}
@@ -88,4 +90,4 @@ const Tabs = ({ data }) => {
   );
 };
 
-export default Tabs;
+export default Tabe;

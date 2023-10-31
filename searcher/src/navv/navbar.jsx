@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink,Link} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './Navigation.scss';
@@ -8,8 +8,8 @@ import '../login/login';
 // import Home from '../homepage/home'
 // import SearchForm from '../searchbar/search';
 
-function Navigation() {
-  return (
+export default function Navigation({isLoggedIn}) {
+  return isLoggedIn ? null:(
       <Navbar className='Navbar'>
         <NavLink to="/">
           <img
@@ -32,4 +32,4 @@ function Navigation() {
   );
 }
 
-export default Navigation;
+

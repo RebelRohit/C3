@@ -1,53 +1,31 @@
-/* Add your styles here */
-/* table styles */
-
-table {
-  margin: 0px !important;
-  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif !important;
-  border-collapse: collapse !important;
-  width: 100% !important;
-}
-
-table td,
-table th {
-  border: 1px solid #ffffff !important;
-  padding: 8px !important;
-}
-
-table tr:nth-child(even) {
-  background-color: #ffffff !important;
-}
-
-table tr:hover {
-  background-color: #ffffff ;
-  color: black ;
-}
-
-/* header and footer styles */
-table th, tfoot td {
-  padding-top: 12px !important;
-  padding-bottom: 12px !important;
-  text-align: center !important;
-  /* border: 20x !important; */
-  background-color: #2967da !important;
-  color: white !important;
+ .custom-table {
+  
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* margin-left: 2px; */
+  /* border-collapse: separate; */
+  border-spacing: 0 0px;
   
 }
 
-.pagination-container {
-  display: flex;
-  justify-content: center; /* Center the pagination horizontally */
-  margin-top: 20px; /* Add a gap from the table bottom */
+.table-container{
+  padding-top: 45px;
 }
 
-.pagination {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.custom-table thead {
+  border: 1px solid black;
+  margin-bottom: 10px;
 }
 
-.pagination li {
-  display: inline;
-  margin-right: 5px; /* Add a bit of space between pagination items */
+.custom-table th {
+  background-color: #007bff; /* Bootstrap's primary color */
+  color: white;
+  padding: 3px;
+  border:1px solid #242424;
+  white-space: nowrap; /* Adjust this value to add more space between elements */
 }
 
+.custom-table td {
+  border: 1px solid #242424;
+  padding: 5px; /* Adjust this value to add more space between elements */
+}

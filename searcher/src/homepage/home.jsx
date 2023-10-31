@@ -1,10 +1,8 @@
 import React from 'react';
 import { Container, Row, Col, Carousel } from 'react-bootstrap';
-// import img from '../Assets/img1.jpg';
-// import img1 from '../Assets/img2.jpg';
 import img from '../Assets/imag1.jpg';
 import img1 from '../Assets/imag2.jpg';
-import '../homepage/home.scss';
+import './home.scss';
 
 function Home() {
   return (

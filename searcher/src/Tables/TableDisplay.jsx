@@ -1,91 +1,149 @@
 import React, { useState, useEffect } from 'react';
-import Tabs from './TableServer'; 
+import Tabe from './TableServer'; 
 import './TableDisplay.css'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import App from '../App';
+// import { FaUserCircle,FaUser,FiLogOut } from 'react-icons/fa';
+import { BsSearch } from 'react-icons/bs';
+import {Tabs,Tab} from 'react-bootstrap';
+import Userdrop from './Userdrop';
 
-function Appp() {
+function Appp({setIsLoggedIn}) {
   const [data, setData] = useState([]); 
   const [startDate, setStartDate] = useState(''); 
   const [endDate, setEndDate] = useState('');
-  const [WAID, setWAID] = useState(''); 
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [whatsAppNumber, setWhatsAppNumber] = useState('');
   const [filteredData, setFilteredData] = useState(data);
+  const navigate = useNavigate();
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    navigate('/login');
+  };
 
-
-
-  // Use useEffect to fetch data from the server (you can customize this part)
   useEffect(() => {
-    // Replace this with your actual server data fetch
     fetch('http://localhost:5005/')
       .then((response) => response.json())
       .then((data) => {
         setData(data);
-        setFilteredData(data); // Update filteredData with fetched data
+        setFilteredData(data); 
       });
   }, []);
 
-
-  function filterDataByDate(data, startDate, endDate) {
+  function filterDataByDateAndNumber(data, startDate, endDate, whatsAppNumber) {
     // Convert startDate and endDate to Date objects
     const start = new Date(startDate);
     const end = new Date(endDate);
-  
+
     // Filter data
     const filteredData = data.filter(item => {
       // Convert item dates to Date objects
-      const requestedDate = new Date(item.requested_date);
-      const sendDate = new Date(item.send_date);
-  
+      const requestedDate = new Date(item.RequestedDate);
+      const sendDate = new Date(item.SendDate);
+
       // Check if requestedDate is after or on startDate and sendDate is before or on endDate
-      return requestedDate >= start && sendDate <= end;
+      const isWithinDateRange = requestedDate >= start && sendDate <= end;
+
+      // Check if the WhatsApp number matches
+      const hasMatchingNumber = item.WAID === whatsAppNumber;
+
+      return isWithinDateRange && hasMatchingNumber;
+    });
+
+    return filteredData;
+  }
+
+  const handleSearch = () => {
+    let filteredData = filterDataByDateAndNumber(data, startDate, endDate, whatsAppNumber);
+
+    filteredData.sort((a, b) => {
+      const dateA = new Date(a.RequestedDate);
+      const dateB = new Date(b.RequestedDate);
+  
+      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
     });
   
-    return filteredData;
-  } // Function to handle search
-  const handleSearch = () => {
-    const filteredData = filterDataByDate(data, startDate, endDate);
     setFilteredData(filteredData);
   }
 
-  // Function to handle reset
+
   const handleReset = () => {
     setStartDate('');
     setEndDate('');
-    //setWAID('');
+    setWhatsAppNumber('');
     setFilteredData(data);
   }
-
   return (
     <div className="container">
-        <Navbar style={{alignItems:"center", alignContent:"center",position:"sticky",top:0}}>
+        <Navbar bg='dark' data-bs-theme="light" className='navbar-custom custom-navbar'>
         <Container>
           <Nav className="me-auto">
-            <Navbar.Text className='label'> Start Date</Navbar.Text>
+            <div className='date-container'>
+            <Navbar.Text className='label' id='label1'> Start Date</Navbar.Text>
             <input type="date" 
                 value={startDate} 
-                 onChange={e => setStartDate(e.target.value)} className='fromdate'/>
-            <Navbar.Text className='label'>End Date</Navbar.Text>
+                onChange={e => setStartDate(e.target.value)} className='fromdate'/>
+            <Navbar.Text className='label' id='label2'>End Date</Navbar.Text>
             <input type="date" 
             value={endDate} 
             onChange={e => setEndDate(e.target.value)} className='todate'/>
-            <Navbar.Text className='label'>Search</Navbar.Text>
+            </div>
+           {/* <Navbar.Text className='label' id='label3'>Search</Navbar.Text> */}
+           <div className='search-container'>
             <input 
-            type="number" 
-            placeholder="WAID..." 
-            value={WAID} 
-            onChange={e => setWAID(e.target.value)} className='waid'/>
-            {/* <button onClick={handleSearch} className='elements' variant='primary'>Search</button>
-            <button onClick={handleReset} className='elements' variant='primary'>Reset</button>  */}
-            <Button onClick={handleSearch} className='elements'variant="success">Search</Button>
-            <Button onClick={handleReset} className='elements' variant="danger">Reset</Button>
+            type=""
+            placeholder="Enter WAID" 
+            value={whatsAppNumber} 
+            onChange={e => setWhatsAppNumber(e.target.value)} className='waid' />
+            <button className='sb' onClick={handleSearch}>
+            <BsSearch className='sear'/></button>
+            </div>
+            <Button onClick={handleReset} className='element' id='resers' >Reset</Button>
+            <Navbar.Text className='label' id='label4'>Sort By</Navbar.Text>
+            <select value={sortOrder} onChange={e => setSortOrder(e.target.value)} className='sortOrder'>
+            <option value="asc">Latest date last</option>
+            <option value="desc">Latest date first</option>
+            </select>
+            {/* <div className='logout'>
+            <OverlayTrigger
+              placement="bottom"
+               overlay={
+              <Tooltip id="logout-tooltip">
+              Logout
+              </Tooltip>
+              }>
+                <button className='logoutz'> 
+                  <FiLogOut className='icon' onClick={handleLogout}/>
+                </button>
+           </OverlayTrigger>
+            </div> */}
+            <Userdrop setIsLoggedIn={setIsLoggedIn} className='icon1'/>
+            {/* <Button onClick={handleLogout} id='logout' variant='outline-danger'>Logout</Button> */}
+                        
+            
+            
+            
+
           </Nav>
         </Container>
       </Navbar>
-      <Tabs data={filteredData} /> {/* Pass filtered data to the TableComponent */}
-    </div>
+      <div className='tabs'>
+       <Tabs defaultActiveKey="table1" transition={true} id="fill-tab-example">
+        <Tab eventKey="table1"  title="Inbound Request">
+      <Tabe data={filteredData} />
+    </Tab>
+    <Tab eventKey="table2"  transition={true} title="Outbound Request" id="fill-tab-example">
+      <Tabe data={filteredData} />
+    </Tab>
+  </Tabs>
+  </div>
+</div>
+
   );
 }
 
