@@ -99,7 +99,7 @@ function Appp({setIsLoggedIn}) {
             type=""
             placeholder="Enter WAID" 
             value={whatsAppNumber} 
-            onChange={e => setWhatsAppNumber(e.target.value)} className='waid' />
+            onChange={e => setWhatsAppNumber(e.target.value)} className='waid' autoComplete='on' />
             <button className='sb' onClick={handleSearch}>
             <BsSearch className='sear'/></button>
             </div>
