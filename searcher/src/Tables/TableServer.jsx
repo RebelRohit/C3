@@ -6,7 +6,7 @@ import './TableSer.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const Tabe = ({ data }) => {
+export  const Tabe = ({ data }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage =10;
     const pageCount = Math.ceil(data.length/itemsPerPage);
@@ -89,5 +89,85 @@ const Tabe = ({ data }) => {
     </div> </>
   );
 };
+export const Tabes = ({ data }) => {
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage =10;
+    const pageCount = Math.ceil(data.length/itemsPerPage);
 
-export default Tabe;
+
+    const offset = currentPage*itemsPerPage;
+    const currentPageData = data.slice(offset,offset +itemsPerPage);
+  return (
+    <>
+    <div className='table-container'>
+    <table className="custom-table">
+      <thead style={{ position: 'sticky', top: '60px', background: 'black' }}>
+        <tr>
+          <th>Seq ID</th>
+          <th>User ID</th>
+          <th>WAID</th>
+          <th>Meta message ID</th>
+          <th>User Name</th>
+          <th>Requested date</th>
+          <th>Requested time</th>
+          <th>Send date</th>
+          <th>Send time</th>
+          <th>Client URL</th>
+          <th>Request body</th>
+          <th>HTTPcode</th>
+          <th>Actual body</th>
+          <th>Response</th>
+          <th>Phone ID</th>
+          <th>Message Status</th>
+          <th>Message Code</th>
+          <th>Message Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {currentPageData.map((item) => (
+          <tr key={item.userId}>
+            <td>{item.SeqId}</td>
+            <td>{item.userId}</td>
+            <td>{item.WAID}</td>
+            <td>{item.meta_message_id}</td>
+            <td>{item.userName}</td>
+            <td>{item.RequestedDate}</td>
+            <td>{item.RequestedTime}</td>
+            <td>{item.SendDate}</td>
+            <td>{item.SendTime}</td>
+            <td>{item.ClientURL}</td>
+            <td>{item.RequestBody}</td>
+            <td>{item.HttpCode}</td>
+            <td>{item.ActualBody}</td>
+            <td>{item.Response}</td>
+            <td>{item.PhoneID}</td>
+            <td>{item.MessageStatus}</td>
+            <td>{item.MessageCode}</td>
+            <td>{item.MessageDescription}</td>
+            </tr>
+        ))}
+      </tbody>
+    </table>
+    </div>
+    <div className="pagination-container">
+    <ReactPaginate style={{ }}
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        breakLabel={<span>...</span>}
+        pageCount={pageCount}
+        marginPagesDisplayed={3}
+        pageRangeDisplayed={5}
+        onPageChange={({ selected: selectedPage }) => setCurrentPage(selectedPage)}
+        containerClassName={'pagination'}
+        previousLinkClassName={'page-link'}
+        nextLinkClassName={'page-link'}
+        pageClassName={'page-item'}
+        pageLinkClassName={'page-link'}
+        activeClassName={'active'}
+      />
+    </div> </>
+  );
+};
+
+
+export default {Tabe,Tabes}

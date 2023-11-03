@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import Tabe from './TableServer'; 
+import {Tabe,Tabes} from './TableServer';
 import './TableDisplay.css'
 import { useNavigate } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
 import {Tab,Nav,Navbar,Container,Button} from 'react-bootstrap';
 import Userdrop from './Userdrop';
 
-function Appp({setIsLoggedIn}) {
-  const [data, setData] = useState([]); 
+function Tag({setIsLoggedIn}) {
+  const [data1, setData1] = useState([]); 
+  const [data2, setData2] = useState([]); 
   const [startDate, setStartDate] = useState(''); 
   const [endDate, setEndDate] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
   const [whatsAppNumber, setWhatsAppNumber] = useState('');
-  const [filteredData1, setFilteredData1] = useState(data);
-  const [filteredData2, setFilteredData2] = useState(data);
+  const [filteredData1, setFilteredData1] = useState(data1);
+  const [filteredData2, setFilteredData2] = useState(data2);
   const navigate = useNavigate();
-
-  // const handleLogout = () => {
-  //   setIsLoggedIn(false);
-  //   navigate('/login');
-  // };
 
   useEffect(() => {
     Promise.all([
@@ -30,23 +26,13 @@ function Appp({setIsLoggedIn}) {
       const data1 = await res1.json();
       const data2 = await res2.json();
       // set state here
-      setData(data1);
-      setData(data2);
+      setData1(data1);
+      setData2(data2);
+      setFilteredData1(data1);
+      setFilteredData2(data2);
     })
     .catch(err => console.log('Error: ', err));
   }, []);
-
-
-
-
-  // useEffect(() => {
-  //   fetch('http://localhost:5005/INB')
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setData(data);
-  //       setFilteredData(data); 
-  //     });
-  // }, []);
 
   function filterDataByDateAndNumber(data, startDate, endDate, whatsAppNumber) {
     // Convert startDate and endDate to Date objects
@@ -74,21 +60,21 @@ function Appp({setIsLoggedIn}) {
   const handleSearch = () => {
     let filteredData1 = filterDataByDateAndNumber(data1, startDate, endDate, whatsAppNumber);
     let filteredData2 = filterDataByDateAndNumber(data2, startDate, endDate, whatsAppNumber);
-  
+
     filteredData1.sort((a, b) => {
       const dateA = new Date(a.RequestedDate);
       const dateB = new Date(b.RequestedDate);
-  
+
       return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
     });
-  
+
     filteredData2.sort((a, b) => {
       const dateA = new Date(a.RequestedDate);
       const dateB = new Date(b.RequestedDate);
-  
+
       return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
     });
-  
+
     setFilteredData1(filteredData1);
     setFilteredData2(filteredData2);
   }
@@ -97,8 +83,11 @@ function Appp({setIsLoggedIn}) {
     setStartDate('');
     setEndDate('');
     setWhatsAppNumber('');
-    setFilteredData(data);
+    setFilteredData1(data1);
+    setFilteredData2(data2);
   }
+
+  // Rest of your component
   return (
     <div className="container">
         <Navbar bg='dark' data-bs-theme="light" className='navbar-custom custom-navbar'>
@@ -120,8 +109,13 @@ function Appp({setIsLoggedIn}) {
             type=""
             placeholder="Enter WAID" 
             value={whatsAppNumber} 
-            onChange={e => setWhatsAppNumber(e.target.value)} className='waid' autoComplete='on' />
-            <button className='sb' onClick={handleSearch}>
+            onChange={e => setWhatsAppNumber(e.target.value)} 
+  onKeyDown={e => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  }} className='waid' autoComplete='on'/>
+            <button className='sb' onClick={handleSearch} >
             <BsSearch className='sear'/></button>
             </div>
             <Button onClick={handleReset} className='element' id='resers' >Reset</Button>
@@ -130,47 +124,19 @@ function Appp({setIsLoggedIn}) {
             <option value="asc">Latest date last</option>
             <option value="desc">Latest date first</option>
             </select>
-            {/* <div className='logout'>
-            <OverlayTrigger
-              placement="bottom"
-               overlay={
-              <Tooltip id="logout-tooltip">
-              Logout
-              </Tooltip>
-              }>
-                <button className='logoutz'> 
-                  <FiLogOut className='icon' onClick={handleLogout}/>
-                </button>
-           </OverlayTrigger>
-            </div> */}
             <Userdrop setIsLoggedIn={setIsLoggedIn} className='icon1'/>
-            {/* <Button onClick={handleLogout} id='logout' variant='outline-danger'>Logout</Button> */}
-                        
-            
-            
-            
 
           </Nav>
         </Container>
       </Navbar>
-      {/* <div className='tabs'>
-       <Tabs defaultActiveKey="table1" transition={true} id="fill-tab-example">
-        <Tab eventKey="table1"  title="Inbound Request">
-      <Tabe data={filteredData} />
-    </Tab>
-    <Tab eventKey="table2"  transition={true} title="Outbound Request" id="fill-tab-example">
-      <Tabe data={filteredData} />
-    </Tab>
-  </Tabs>
-  </div> */}
-  <Tab.Container defaultActiveKey="first">
+  <Tab.Container className='az' defaultActiveKey="first">
     <div className="d-flex">
         <Nav variant="pills" className="flex-column">
             <Nav.Item>
                 <Nav.Link eventKey="first">Inbound Request</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link eventKey="second">Outbound Request</Nav.Link>
+                <Nav.Link eventKey="second" >Meta Callback</Nav.Link>
             </Nav.Item>
         </Nav>
         <Tab.Content>
@@ -178,7 +144,7 @@ function Appp({setIsLoggedIn}) {
                 <Tabe data={filteredData1} />
             </Tab.Pane>
             <Tab.Pane eventKey="second">
-                <Tabe data={filteredData2} />
+                <Tabes data={filteredData2} />
             </Tab.Pane>
         </Tab.Content>
     </div>
@@ -189,4 +155,6 @@ function Appp({setIsLoggedIn}) {
   );
 }
 
-export default Appp;
+
+
+export default Tag;

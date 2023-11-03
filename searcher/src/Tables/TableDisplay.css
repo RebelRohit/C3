@@ -35,15 +35,15 @@
     width: 100%;
     margin:0px;
     padding: 0;
+    z-index: 1020;
   
     
 
   }
   .navbar-custom {
     background-color: #2ac91c !important;
-    color: white !important;
     position: sticky !important;
-    width: 162%;
+    width: 179%;
     height: 70px;
     border-top: 10px;
     
@@ -82,7 +82,7 @@
   
   .element:hover{
     background-color: #16459c;
-    font-size: large;
+    
   }
 
   /* .fromdate{
@@ -154,6 +154,9 @@
     width: 30px;
     cursor:pointer;
   }
+
+
+
   /* #fill-tab-example{
     position: sticky;
     overflow: hidden;
@@ -274,3 +277,11 @@ html{
 }
 
 
+
+
+.d-flex{
+transform: translateY(10px);
+}
+.flex-column{
+  text-wrap: nowrap;
+}
