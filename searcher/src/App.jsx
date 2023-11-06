@@ -1,6 +1,7 @@
 import Home from './homepage/home'
 import LoginCard from './login/login'
 import Navigation from './navv/navbar'
+import Tag from './Tables/Tag'
 import { Routes, Route } from 'react-router-dom'
 import About from './homepage/About'
 import Nomatch from './homepage/Nomatch'
@@ -21,7 +22,7 @@ export default function App() {
         <Route path="/login" element={<LoginCard setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/search" element={ 
         <ProtectedRoute isLoggedIn={isLoggedIn}>
-          <Appp setIsLoggedIn={setIsLoggedIn}/>
+          <Tag setIsLoggedIn={setIsLoggedIn}/>
         </ProtectedRoute>}/>
         <Route path="/about" element={<About/>} />
         <Route path="*" element={<Nomatch/>} />

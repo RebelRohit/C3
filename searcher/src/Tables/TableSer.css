@@ -1,20 +1,22 @@
  .custom-table {
   
-  margin-top: 20px;
+  margin-top: 0px;
   margin-bottom: 20px;
-  /* margin-left: 2px; */
-  /* border-collapse: separate; */
-  border-spacing: 0 0px;
+  margin-left: 10px;
+  
   
 }
 
 .table-container{
   padding-top: 45px;
+  
+
 }
 
 .custom-table thead {
   border: 1px solid black;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .custom-table th {
@@ -27,5 +29,6 @@
 
 .custom-table td {
   border: 1px solid #242424;
-  padding: 5px; /* Adjust this value to add more space between elements */
+  padding: 5px; 
+  text-align: justify;/* Adjust this value to add more space between elements */
 }
