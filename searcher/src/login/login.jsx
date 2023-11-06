@@ -55,7 +55,10 @@ export default function LoginCard({setIsLoggedIn}) {
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={handleLogin} />
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleLogin();
+                  }}} />
             </div>
             <button
               type="button"
