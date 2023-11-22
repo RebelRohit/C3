@@ -33,10 +33,14 @@ function Userdrop({ setIsLoggedIn}) {
     };
   }, [dropdownOpen]);
 
+  
+
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    navigate('/login');
+    localStorage.removeItem('token'); 
+    setIsLoggedIn(false); 
+    navigate('/login'); 
   };
+
 
   return (
     <div className="dropdown" ref={node}>
@@ -54,7 +58,7 @@ function Userdrop({ setIsLoggedIn}) {
           </div>
           <div className="dropdown-item">
             <FaSignOutAlt className="dropdown-icon" />
-            <a onClick={handleLogout}>Logout</a>
+            <a  onClick={handleLogout}>Logout</a>
           </div>
         </div>
       )}

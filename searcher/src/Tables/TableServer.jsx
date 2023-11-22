@@ -93,8 +93,6 @@ export const Tabes = ({ data }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage =10;
     const pageCount = Math.ceil(data.length/itemsPerPage);
-
-
     const offset = currentPage*itemsPerPage;
     const currentPageData = data.slice(offset,offset +itemsPerPage);
   return (
@@ -169,5 +167,80 @@ export const Tabes = ({ data }) => {
   );
 };
 
+export const Tel = ({ data }) => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage =10;
+  const pageCount = Math.ceil(data.length/itemsPerPage);
+  const offset = currentPage*itemsPerPage;
+  const currentPageData = data.slice(offset,offset +itemsPerPage);
+return (
+  <>
+  <div className='table-container'>
+  <table className="custom-table">
+    <thead style={{ position: 'sticky', top: '60px', background: 'black' }}>
+      <tr>
+        <th>ID</th>
+        <th>Number</th>
+        <th>Pri ID</th>
+        <th>App URL</th>
+        <th>Max Calls</th>
+        <th>User ID</th>
+        <th>Timeout</th>
+        <th>Pri Ownwer</th>
+        <th>Create Date Time</th>
+        <th>Update Date Time</th>
+        <th>Pring</th>
+        <th>Is Active</th>
+        <th>De Active Date</th>
+        <th>App code</th>
+        <th>Caller ID</th>
+        <th>Location</th>
+        <th>Location ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      {currentPageData.map((item) => (
+        <tr key={item.id}>
+          <td>{item.id}</td>
+          <td>{item.number}</td>
+          <td>{item.pri_id}</td>
+          <td>{item.app_url}</td>
+          <td>{item.user_id}</td>
+          <td>{item.max_calls}</td>
+          <td>{item.timeout}</td>
+          <td>{item.PriOwner}</td>
+          <td>{item.CreateDateTime}</td>
+          <td>{item.UpdateDateTime}</td>
+          <td>{item.PRing}</td>
+          <td>{item.IsActive}</td>
+          <td>{item.DeActiveDate}</td>
+          <td>{item.app_code}</td>
+          <td>{item.caller_id}</td>
+          <td>{item.Location}</td>
+          <td>{item.LocationID}</td>
+          </tr>
+      ))}
+    </tbody>
+  </table>
+  </div>
+  <div className="pagination-container">
+  <ReactPaginate style={{ }}
+      previousLabel={'Previous'}
+      nextLabel={'Next'}
+      breakLabel={<span>...</span>}
+      pageCount={pageCount}
+      marginPagesDisplayed={3}
+      pageRangeDisplayed={5}
+      onPageChange={({ selected: selectedPage }) => setCurrentPage(selectedPage)}
+      containerClassName={'pagination'}
+      previousLinkClassName={'page-link'}
+      nextLinkClassName={'page-link'}
+      pageClassName={'page-item'}
+      pageLinkClassName={'page-link'}
+      activeClassName={'active'}
+    />
+  </div> </>
+);
+};
 
-export default {Tabe,Tabes}
+export default {Tabe,Tabes,Tel}

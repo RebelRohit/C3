@@ -1,31 +1,51 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './login.scss';
-import { useNavigate } from 'react-router-dom';
-import credentials from '../credentials.json';
+import { useNavigate} from 'react-router-dom';
+import { useEffect } from 'react';
+import axios from 'axios'
 
-
-export default function LoginCard({setIsLoggedIn}) {
-  const [username, setUsername] = useState('');
+export default function LoginCard({ setIsLoggedIn }) {
+  const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  
 
-  const handleLogin = () => {
-    if (username === credentials.userID && password === credentials.Password) {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    axios.defaults.baseURL = 'http://localhost:8000/login';
+  
+    try {
+      const response = await axios.post('/', {
+        userName,password
+      },{ withCredentials: true });
+      const token = response.data.token;
+      localStorage.setItem('token', token); // Changed 'isLoggedIn' to 'token'
       setIsLoggedIn(true);
-      navigate("/search");
-    } else {
-      alert('Invalid username or password');
+      navigate('/search');
+    } catch (error) {
+      alert('Invalid userID or Password');
     }
   };
-
   
-  return (
-    <>
+  useEffect(() => {
+    const token = localStorage.getItem('token'); // Changed 'isLoggedIn' to 'token'
+    if (token) {
+      setIsLoggedIn(true);
+      navigate('/search');
+    }
+    setIsLoading(false);
+  }, []);
+  
+  if (isLoading) {
+    return <div><span>Loading...</span></div>;
+  }
+  
     
+  
+
+  return (
     <div className="login-card">
-      
       <div className="card">
         <div className="card-body">
           <h5 className="card-title">Login</h5>
@@ -40,8 +60,10 @@ export default function LoginCard({setIsLoggedIn}) {
                 className="form-control"
                 id="username"
                 placeholder="Enter your username"
-                value={username}
+                required={true}
+                value={userName}
                 onChange={(e) => setUsername(e.target.value)}
+                autoComplete = "off"
               />
             </div>
             <div className="mb-3">
@@ -53,25 +75,25 @@ export default function LoginCard({setIsLoggedIn}) {
                 className="form-control"
                 id="password"
                 placeholder="Enter your password"
+                required={true}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    handleLogin();
-                  }}} />
+                onKeyDown ={(e)=>{
+                  if(e.key === 'Enter'){
+                    handleLogin(e)
+                  // autoComplete = "off"
+
+                  }
+                }}
+                autoComplete = "off"
+              />
             </div>
-            <button
-              type="button"
-              className="btn btn-custom"
-              id="button"
-              onClick={handleLogin}
-            >
+            <button type="button" className="btn btn-custom" id="button" onClick={handleLogin}>
               Login
             </button>
           </form>
         </div>
       </div>
     </div>
-    </>
   );
 }

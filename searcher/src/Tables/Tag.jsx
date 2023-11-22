@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Tabe,Tabes} from './TableServer';
+import {Tabe,Tabes, Tel} from './TableServer';
 import './TableDisplay.css'
 import { useNavigate } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
@@ -9,27 +9,33 @@ import Userdrop from './Userdrop';
 function Tag({setIsLoggedIn}) {
   const [data1, setData1] = useState([]); 
   const [data2, setData2] = useState([]); 
+  const [data3, setData3] = useState([]); 
   const [startDate, setStartDate] = useState(''); 
   const [endDate, setEndDate] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
   const [whatsAppNumber, setWhatsAppNumber] = useState('');
   const [filteredData1, setFilteredData1] = useState(data1);
   const [filteredData2, setFilteredData2] = useState(data2);
+  const [filteredData3, setFilteredData3] = useState(data3);
   const navigate = useNavigate();
 
   useEffect(() => {
     Promise.all([
-      fetch('http://localhost:5005/INB'),
-      fetch('http://localhost:5005/OTB') // replace with your second endpoint
+      fetch('http://localhost:8000/INB'),
+      fetch('http://localhost:8000/OTB'),
+      fetch('http://localhost:8000/TEL') 
     ])
-    .then(async([res1, res2]) => {
+    .then(async([res1, res2, res3]) => {
       const data1 = await res1.json();
       const data2 = await res2.json();
+      const data3 = await res3.json();
       // set state here
       setData1(data1);
       setData2(data2);
+      setData3(data3);
       setFilteredData1(data1);
       setFilteredData2(data2);
+      setFilteredData3(data3);
     })
     .catch(err => console.log('Error: ', err));
   }, []);
@@ -60,6 +66,7 @@ function Tag({setIsLoggedIn}) {
   const handleSearch = () => {
     let filteredData1 = filterDataByDateAndNumber(data1, startDate, endDate, whatsAppNumber);
     let filteredData2 = filterDataByDateAndNumber(data2, startDate, endDate, whatsAppNumber);
+    let filteredData3 = filterDataByDateAndNumber(data3, startDate, endDate, whatsAppNumber);
 
     filteredData1.sort((a, b) => {
       const dateA = new Date(a.RequestedDate);
@@ -74,9 +81,17 @@ function Tag({setIsLoggedIn}) {
 
       return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
     });
+    
+    filteredData3.sort((a, b) => {
+      const dateA = new Date(a.RequestedDate);
+      const dateB = new Date(b.RequestedDate);
 
+      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    });
+    
     setFilteredData1(filteredData1);
     setFilteredData2(filteredData2);
+    setFilteredData2(filteredData3);
   }
 
   const handleReset = () => {
@@ -85,6 +100,7 @@ function Tag({setIsLoggedIn}) {
     setWhatsAppNumber('');
     setFilteredData1(data1);
     setFilteredData2(data2);
+    setFilteredData3(data3);
   }
 
   // Rest of your component
@@ -114,7 +130,7 @@ function Tag({setIsLoggedIn}) {
     if (e.key === 'Enter') {
       handleSearch();
     }
-  }} className='waid' autoComplete='on'/>
+  }} className='waid' autoComplete="on"/>
             <button className='sb' onClick={handleSearch} >
             <BsSearch className='sear'/></button>
             </div>
@@ -129,14 +145,17 @@ function Tag({setIsLoggedIn}) {
           </Nav>
         </Container>
       </Navbar>
-  <Tab.Container className='az' defaultActiveKey="first">
+      <Tab.Container defaultActiveKey="first">
     <div className="d-flex">
         <Nav variant="pills" className="flex-column">
             <Nav.Item>
                 <Nav.Link eventKey="first">Inbound Request</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link eventKey="second" >Meta Callback</Nav.Link>
+                <Nav.Link eventKey="second">Outbound Request</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link eventKey="third">KooKoo</Nav.Link>
             </Nav.Item>
         </Nav>
         <Tab.Content>
@@ -145,6 +164,26 @@ function Tag({setIsLoggedIn}) {
             </Tab.Pane>
             <Tab.Pane eventKey="second">
                 <Tabes data={filteredData2} />
+            </Tab.Pane>
+            <Tab.Pane eventKey="third">
+                <Tab.Container defaultActiveKey="subfirst">
+                    <Nav variant="pills" className="flex-column">
+                        <Nav.Item>
+                            <Nav.Link eventKey="subfirst">Tel dids</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link eventKey="subsecond">User Conf</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                    <Tab.Content>
+                        <Tab.Pane eventKey="subfirst">
+                            <Tel data={filteredData3}/>
+                        </Tab.Pane>
+                        <Tab.Pane eventKey="subsecond">
+                            {/* Content for Sub Tab 2 */}
+                        </Tab.Pane>
+                    </Tab.Content>
+                </Tab.Container>
             </Tab.Pane>
         </Tab.Content>
     </div>

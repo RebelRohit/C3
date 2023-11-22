@@ -5,7 +5,6 @@ import Tag from './Tables/Tag'
 import { Routes, Route } from 'react-router-dom'
 import About from './homepage/About'
 import Nomatch from './homepage/Nomatch'
-import Appp from './Tables/TableDisplay'
 import { useState } from 'react'
 import ProtectedRoute from './login/Protected'
 
